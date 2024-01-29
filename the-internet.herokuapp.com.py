@@ -114,6 +114,19 @@ class TestKravchenko(unittest.TestCase):
         time.sleep(5)
         text_check = browser.find_element(By.ID, 'result').text
         self.assertEqual(text_check, "You entered: A" )
+
+    def test_mes(self):
+        browser.get("https://the-internet.herokuapp.com")
+        browser.implicitly_wait(15)
+        time.sleep(5)
+        testElem = browser.find_element(By.XPATH, "//a [@href='/notification_message']")
+        testElem.click()
+        time.sleep(5)
+        mes_check = browser.find_element(By.ID, 'flash').text
+        if (mes_check == 'Action successful'):
+            self.assertEqual(mes_check, "Action successful\n\xd7" )
+        else:
+            self.assertEqual(mes_check, "Action unsuccesful, please try again\n\xd7" )
         
 if __name__ == '__main__':
     unittest.main()
